@@ -1,4 +1,3 @@
-
 from models import *
 from continuum import *
 from scipy.optimize import curve_fit
@@ -200,7 +199,7 @@ def two_curve_bounds(spec, cont, dip, continuum='linear', mus=None):
 
     return [mu1_fit_g - 4*sigma1_fit_g, mu1_fit_g + 4*sigma1_fit_g,  mu2_fit_g - 4*sigma2_fit_g, mu2_fit_g + 4*sigma2_fit_g]
 
-def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_continuum=True):
+def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_continuum=True, bin_size = 10, bin_take = 'max'):
     # needs editing copied from single function prior to further editing
     '''
     spec (array-like): spectrum 
@@ -244,7 +243,7 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
     spec_section[2, :] = spec[2, :][continuum_mask.mask]
 
     # fitting linear continuum
-    [m, b], cov_lin = linear_continuum(spec_section, dip, binned = bin_continuum)
+    [m, b], cov_lin = linear_continuum(spec_section, dip, binned = bin_continuum, bin_size=bin_size, bin_take=bin_take)
     cont_parameters = [m, b, cov_lin[0,0], cov_lin[1,1]]
 
     # normalizing spectra
@@ -311,8 +310,7 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
         # fitting using scipy
         try:
             params_v, covariance_v = curve_fit(
-                two_voigts, norm_spec_section[0,
-                                              :][fit_mask], norm_spec_section[1, :][fit_mask],
+                two_voigts, norm_spec_section[0, :][fit_mask], norm_spec_section[1, :][fit_mask],
                 p0=[A0_v, A0_v, sigma0_v, sigma0_v,
                     gamma0_v, gamma0_v, mu1_0, mu2_0],
                 sigma=norm_spec_section[2, :][fit_mask],
@@ -342,15 +340,15 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
 
 
         if np.min(norm_spec_section[1, :]) < 0:
-            A_bounds_p = [np.min(norm_spec_section[1, :]) * 2,
-                          np.min(norm_spec_section[1, :]) / 10]
+            A_bounds_p = [A0_p * 2,
+                          A0_p / 10]
         else:  # TODO: make an error
             print("minimum spectra value is positive")
         # fitting using scipy
+        
         try:
             params_p, covariance_p = curve_fit(
-                two_pseudo_voigts, norm_spec_section[0,
-                                                     :][fit_mask], norm_spec_section[1, :][fit_mask],
+                two_pseudo_voigts, norm_spec_section[0,:][fit_mask], norm_spec_section[1, :][fit_mask],
                 p0=[nu0, nu0, A0_p, A0_p, sigma01_p, sigma02_p, mu1_0, mu2_0],
                 sigma=norm_spec_section[2, :][fit_mask],
                 bounds=((nu_bounds[0], nu_bounds[0], A_bounds_p[0], A_bounds_p[0], sigma_bounds1_p[0], sigma_bounds2_p[0], mu1_bounds[0], mu2_bounds[0]),
@@ -367,8 +365,8 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                 p0=[nu1_fit_p, nu2_fit_p, A1_fit_p, A2_fit_p,
                     sigma1_fit_p, sigma2_fit_p, mu1_fit_p, mu2_fit_p],
                 sigma=norm_spec_section[2, :][fit_mask],
-                bounds=((nu_bounds[0], nu_bounds[0], A1_fit_p - eps, A2_fit_p - eps, sigma1_fit_p - eps, sigma2_fit_p - eps, mu1_fit_p - eps, mu2_fit_p - eps),
-                        (nu_bounds[1], nu_bounds[1], A1_fit_p + eps, A2_fit_p + eps, sigma1_fit_p + eps, sigma2_fit_p + eps, mu1_fit_p + eps, mu2_fit_p + eps)))
+                bounds=((nu_bounds[0], nu_bounds[0], A1_fit_p - abs(A1_fit_p*eps), A2_fit_p - abs(A2_fit_p*eps), sigma1_fit_p - eps, sigma2_fit_p - eps, mu1_fit_p - eps, mu2_fit_p - eps),
+                        (nu_bounds[1], nu_bounds[1], A1_fit_p + abs(A1_fit_p*eps), A2_fit_p + abs(A2_fit_p*eps), sigma1_fit_p + eps, sigma2_fit_p + eps, mu1_fit_p + eps, mu2_fit_p + eps)))
             nu1_fit_p, nu2_fit_p, A1_fit_p, A2_fit_p, sigma1_fit_p, sigma2_fit_p, mu1_fit_p, mu2_fit_p = params_p
             params_sd_p = covariance_p[0, 0], covariance_p[1,
                                                            1], covariance_p[2, 2], covariance_p[3, 3]
@@ -409,6 +407,9 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                      label='pseudo-voigt fit', color='green',  alpha=0.7, linestyle='--')
 
         plt.legend()
+    elif show == False:
+        plt.clf() # clear all plots since not wanted 
+
     if function == "all":
         return cont_parameters, params_g, params_sd_g, params_v, params_sd_v, params_p, params_sd_p
     elif function == "voigt":
