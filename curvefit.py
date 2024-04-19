@@ -68,7 +68,7 @@ def fit_single_curve(spec, cont, dip, function="gaussian", show=False, continuum
             sigma=norm_spec_section[2, :][fit_mask],
             bounds=((A_bounds[0], sigma_bounds[0], mu_bounds[0]), (A_bounds[1], sigma_bounds[1], mu_bounds[1])))
         A_fit, sigma_fit, mu_fit = params
-        params_sd = covariance[0, 0], covariance[1, 1], covariance[2, 2]
+        params_sd = np.diagonal(covariance)
 
     # fitting Voigt
     if function == 'voigt':
@@ -92,8 +92,7 @@ def fit_single_curve(spec, cont, dip, function="gaussian", show=False, continuum
             sigma=norm_spec_section[2, :][fit_mask],
             bounds=((A_bounds[0], sigma_bounds[0], gamma_bounds[0], mu_bounds[0]), (A_bounds[1], sigma_bounds[1], gamma_bounds[1], mu_bounds[1])))
         A_fit, sigma_fit, gamma_fit, mu_fit = params
-        params_sd = covariance[0, 0], covariance[1,
-                                                 1], covariance[2, 2], covariance[3, 3]
+        params_sd = np.diagonal(covariance)
 
     if show == True:
         plt.plot(norm_spec_section[0, :], norm_spec_section[1, :],
@@ -288,8 +287,7 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                 bounds=((A_bounds_g[0], A_bounds_g[0], sigma_bounds1_g[0], sigma_bounds2_g[0], mu1_bounds[0], mu2_bounds[0]),
                         (A_bounds_g[1], A_bounds_g[1], sigma_bounds1_g[1], sigma_bounds2_g[1], mu1_bounds[1], mu2_bounds[1])))
             A1_fit_g, A2_fit_g, sigma1_fit_g, sigma2_fit_g, mu1_fit_g, mu2_fit_g = params_g
-            params_sd_g = covariance_g[0,
-                                       0], covariance_g[1, 1], covariance_g[2, 2]
+            params_sd_g = np.diagonal(covariance_g)
         except:  # TODO: make into an error
             print("error occurred here were the input bound ons A, sigma1, sigma2, mu1, and mu2 respectively",
                   '\n', A_bounds_g, '\n', sigma_bounds1_g, '\n', sigma_bounds2_g, '\n', mu1_bounds, '\n', mu2_bounds)
@@ -318,8 +316,7 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                         (A_bounds_v[1], A_bounds_v[1], sigma_bounds_v[1], sigma_bounds_v[1], gamma_bounds_v[1], gamma_bounds_v[1], mu1_bounds[1], mu2_bounds[1])))
 
             A1_fit_v, A2_fit_v, sigma1_fit_v, sigma2_fit_v, gamma1_fit_v, gamma2_fit_v, mu1_fit_v, mu2_fit_v = params_v
-            params_sd_v = covariance_v[0, 0], covariance_v[1,
-                                                           1], covariance_v[2, 2], covariance_v[3, 3]
+            params_sd_v = np.diagonal(covariance_v)
         except:  # TODO: make into an error
             print("error occurred here were the input bound ons A, sigma, gamma, mu1, and mu2 respectively",
                   '\n', A_bounds_v, '\n', sigma_bounds_v, '\n', gamma_bounds_v, '\n', mu1_bounds, '\n', mu2_bounds)
@@ -354,22 +351,18 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                 bounds=((nu_bounds[0], nu_bounds[0], A_bounds_p[0], A_bounds_p[0], sigma_bounds1_p[0], sigma_bounds2_p[0], mu1_bounds[0], mu2_bounds[0]),
                         (nu_bounds[1], nu_bounds[1], A_bounds_p[1], A_bounds_p[1], sigma_bounds1_p[1], sigma_bounds2_p[1], mu1_bounds[1], mu2_bounds[1])))
             nu1_fit_p, nu2_fit_p, A1_fit_p, A2_fit_p, sigma1_fit_p, sigma2_fit_p, mu1_fit_p, mu2_fit_p = params_p
-            params_sd_p = covariance_p[0, 0], covariance_p[1,
-                                                           1], covariance_p[2, 2], covariance_p[3, 3]
+            params_sd_p = np.diagonal(covariance_p)
 
             # doing a secondary fit only adjusting mu
             eps = np.finfo(float).eps
             params_p, covariance_p = curve_fit(
-                two_pseudo_voigts, norm_spec_section[0,
-                                                     :][fit_mask], norm_spec_section[1, :][fit_mask],
+                two_pseudo_voigts, norm_spec_section[0, :][fit_mask], norm_spec_section[1, :][fit_mask],
                 p0=[nu1_fit_p, nu2_fit_p, A1_fit_p, A2_fit_p,
                     sigma1_fit_p, sigma2_fit_p, mu1_fit_p, mu2_fit_p],
                 sigma=norm_spec_section[2, :][fit_mask],
                 bounds=((nu_bounds[0], nu_bounds[0], A1_fit_p - abs(A1_fit_p*eps), A2_fit_p - abs(A2_fit_p*eps), sigma1_fit_p - eps, sigma2_fit_p - eps, mu1_fit_p - eps, mu2_fit_p - eps),
                         (nu_bounds[1], nu_bounds[1], A1_fit_p + abs(A1_fit_p*eps), A2_fit_p + abs(A2_fit_p*eps), sigma1_fit_p + eps, sigma2_fit_p + eps, mu1_fit_p + eps, mu2_fit_p + eps)))
             nu1_fit_p, nu2_fit_p, A1_fit_p, A2_fit_p, sigma1_fit_p, sigma2_fit_p, mu1_fit_p, mu2_fit_p = params_p
-            params_sd_p = covariance_p[0, 0], covariance_p[1,
-                                                           1], covariance_p[2, 2], covariance_p[3, 3]
         except:  # TODO: make an error
             print("error occurred here were the input bound ons A, sigma1, sigma2, mu1, and mu2 respectively",
                   '\n', A_bounds_p, '\n', sigma_bounds1_p, '\n', sigma_bounds2_p, '\n', mu1_bounds, '\n', mu2_bounds)
@@ -407,7 +400,7 @@ def fit_two_curves(spec, cont, dip, function="all", show=False, mus=None, bin_co
                      label='pseudo-voigt fit', color='green',  alpha=0.7, linestyle='--')
 
         plt.legend()
-    elif show == False:
+    if show == False:
         plt.clf() # clear all plots since not wanted 
 
     if function == "all":
