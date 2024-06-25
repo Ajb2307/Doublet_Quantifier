@@ -1,5 +1,6 @@
-import numpy as np 
+import numpy as np
 import numpy.ma as ma
+
 
 def bin_spectra(spectra, bin_size, take="max"):
     """
@@ -21,9 +22,9 @@ def bin_spectra(spectra, bin_size, take="max"):
     num_bins = len(spectra[0, :]) // bin_size
 
     # Reshape data to create bins
-    binned_x = spectra[0, :num_bins * bin_size].reshape((num_bins, bin_size))
-    binned_y = spectra[1, :num_bins * bin_size].reshape((num_bins, bin_size))
-    binned_e = spectra[2, :num_bins * bin_size].reshape((num_bins, bin_size))
+    binned_x = spectra[0, : num_bins * bin_size].reshape((num_bins, bin_size))
+    binned_y = spectra[1, : num_bins * bin_size].reshape((num_bins, bin_size))
+    binned_e = spectra[2, : num_bins * bin_size].reshape((num_bins, bin_size))
 
     if take == "max":
         # Compute the maximum value in each bin
@@ -42,8 +43,9 @@ def bin_spectra(spectra, bin_size, take="max"):
 
     return binned_spectra
 
-def linear_continuum(spec, dip, binned=False, bin_take='max', bin_size=10):
-    '''
+
+def linear_continuum(spec, dip, binned=False, bin_take="max", bin_size=10):
+    """
 
     fits line returns values of slope (m) and intercept (b)
 
@@ -55,15 +57,15 @@ def linear_continuum(spec, dip, binned=False, bin_take='max', bin_size=10):
             Note: number_of_dips = 2 for this to work
 
 
-    Returns: 
+    Returns:
         [m, b], covariance matrix
-    '''
+    """
 
     continuum_mask = np.full(spec[0, :].shape, True)  # empty continuum mask
 
     # create mask for where continuum will be fit
-    for i in range(len(dip)//2) :
-        outside_dip = ma.masked_outside(spec[0, :], dip[i*2], dip[i*2 + 1]).mask
+    for i in range(len(dip) // 2):
+        outside_dip = ma.masked_outside(spec[0, :], dip[i * 2], dip[i * 2 + 1]).mask
         continuum_mask = np.logical_and(continuum_mask, outside_dip)
 
     # creating continuum spectra array
@@ -77,15 +79,21 @@ def linear_continuum(spec, dip, binned=False, bin_take='max', bin_size=10):
         continuum_spectra = bin_spectra(continuum_spectra, bin_size, take=bin_take)
 
     [m, b], cov = np.polyfit(
-        continuum_spectra[0, :], continuum_spectra[1, :], 1, w=1/continuum_spectra[2, :], cov=True)
+        continuum_spectra[0, :],
+        continuum_spectra[1, :],
+        1,
+        w=1 / continuum_spectra[2, :],
+        cov=True,
+    )
 
     return [m, b], cov
 
-def polynomial_continuum(spec, dip, deg=2, binned=False, bin_take='max', bin_size=10):
-    '''
+
+def polynomial_continuum(spec, dip, deg=2, binned=False, bin_take="max", bin_size=10):
+    """
 
     fits polynomial equations outside dip(s)
-    returns coefficients (in descending degree order), and covariance matrix 
+    returns coefficients (in descending degree order), and covariance matrix
 
 
     spec: spectrum where you want to fit line
@@ -97,15 +105,15 @@ def polynomial_continuum(spec, dip, deg=2, binned=False, bin_take='max', bin_siz
     deg: int degree of line fit
 
 
-    Returns: 
+    Returns:
         ndarray, shape (deg + 1,) or (deg + 1, K) Polynomial coefficients, highest power first.
-        covariance matrix 
-    '''
+        covariance matrix
+    """
 
     continuum_mask = np.full(spec[0, :].shape, True)  # empty continuum mask
 
-    for i in len(dip)/2:
-        dip = ma.masked_outside(spec[0, :], dip[i*2], dip[i*2 + 1]).mask
+    for i in len(dip) / 2:
+        dip = ma.masked_outside(spec[0, :], dip[i * 2], dip[i * 2 + 1]).mask
         continuum_mask = np.logical_and(continuum_mask, dip.mask)
 
     # creating continuum spectra array
@@ -119,6 +127,11 @@ def polynomial_continuum(spec, dip, deg=2, binned=False, bin_take='max', bin_siz
         continuum_spectra = bin_spectra(continuum_spectra, bin_size, take=bin_take)
 
     coef, cov = np.polyfit(
-        continuum_spectra[0, :], continuum_spectra[1, :], deg,  w=1/continuum_spectra[2, :], cov=True)
+        continuum_spectra[0, :],
+        continuum_spectra[1, :],
+        deg,
+        w=1 / continuum_spectra[2, :],
+        cov=True,
+    )
 
     return coef, cov
