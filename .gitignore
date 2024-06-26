@@ -3,5 +3,8 @@ __pycache__
 .pytest_cache
 *.pyc
 .ruff_cache
-settings.json
+.vscode
+Doublet_Quantifier.egg-info
+build
+
 

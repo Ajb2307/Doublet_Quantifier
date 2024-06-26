@@ -1,9 +1,11 @@
 [project]
-name = "Doublet Quantifier"
+name = "Doublet_Quantifier"
 version = "0.0.1"
 
 [owner]
 name = "Alexandra Baldelli"
+email = "AlexandraJBaldelli@gmail.com"
+
 # tools
 [tool.black]
 line-length = 88
