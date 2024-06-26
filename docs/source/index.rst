@@ -10,6 +10,11 @@ Welcome to Doublet_Quantifier's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :maxdepth: 1
+   :caption: API documentation:
+   continuum
+   curvefit
 
 
 Indices and tables
