@@ -28,7 +28,9 @@ dependencies = [
   "numpy",
   "scipy",
   "matplotlib",
-  "pickle"
+  "pickle",
+  "sphinx",
+  "myst-parser"
 ]
 
 [project.urls]
