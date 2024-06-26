@@ -1,4 +1,9 @@
+[project]
+name = "Doublet Quantifier"
+version = "0.0.1"
 
+[owner]
+name = "Alexandra Baldelli"
 # tools
 [tool.black]
 line-length = 88
