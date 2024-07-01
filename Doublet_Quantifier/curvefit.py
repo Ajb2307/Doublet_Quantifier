@@ -263,6 +263,7 @@ def two_curve_bounds(spec, cont, dip, continuum="linear", mus=None):
     ]
 
 
+    # needs editing copied from single function prior to further editing
 def fit_two_curves(
     spec,
     cont,
@@ -274,7 +275,6 @@ def fit_two_curves(
     bin_size=10,
     bin_take="max",
 ):
-    # needs editing copied from single function prior to further editing
     """
     spec (array-like): spectrum
     function (string): takes "gaussian", "voigt", or "pseudo-Voigt" as function to be fit to the spectrum

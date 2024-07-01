@@ -7,19 +7,28 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Doublet_Quantifier'
-copyright = '2024, Alexandra Baldelli'
+copyright = '0.0.1, Alexandra Baldelli'
 author = 'Alexandra Baldelli'
 release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.napoleon',
-              'sphinx.ext.intersphinx',
-              'sphinx.ext.mathjax']
+extensions = [
+    'sphinx.ext.napoleon',
+    'myst_parser',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.intersphinx',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
+
+autodoc_default_options = {
+    'members': True,
+}
+autoclass_content = 'class'
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 
