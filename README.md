@@ -10,6 +10,7 @@ This work was presented at AAS 243rd meeting as an [iPoster](https://aas242-aas.
 
 Work done at Brown Dwarf New York City (BDNYC) and American Museum of Natural History (AMNH)
 
+To cite this work see [CITATION](https://github.com/Ajb2307/Doublet_Quantifier/blob/main/CITATION)
 
 pseudo-Voigt
 ============
