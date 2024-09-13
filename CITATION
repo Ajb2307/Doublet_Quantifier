@@ -1,0 +1,20 @@
+If you you use or reference this script please cite this repository:
+  github.com/Ajb2307/Doublet_Quantifier/
+
+If you are citing in a paper you may cite the abstract of the poster where this work was presented:
+  ui.adsabs.harvard.edu/abs/2024AAS...24325920B/abstract
+
+The BibTex for the abstract is:
+
+@INPROCEEDINGS{Doublet-Quantifier-abstract,
+       author = {{Baldelli}, Alexandra and {Cruz}, Kelle and {Suarez}, Genaro and {Faherty}, Jacqueline},
+        title = "{Investigating the Relationship Between of Inclination Angle and Gravity Sensitive Absorption Lines in Brown Dwarfs}",
+    booktitle = {American Astronomical Society Meeting Abstracts},
+         year = 2024,
+       series = {American Astronomical Society Meeting Abstracts},
+       volume = {243},
+        month = feb,
+          eid = {259.20},
+        pages = {259.20},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2024AAS...24325920B},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
