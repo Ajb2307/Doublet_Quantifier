@@ -1,0 +1,11 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Baldelli"
+  given-names: "Alexandra"
+- family-names: "Cruz"
+  given-names: "Kelle"
+title: "Doublet_Quantifier"
+version: 1.0.0
+date-released: 2024-09-13
+url: "https://github.com/Ajb2307/Doublet_Quantifier"
