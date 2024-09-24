@@ -1,5 +1,5 @@
-from Doublet_Quantifiers.models import *
-from Doublet_Quantifiers.continuum import *
+from Doublet_Quantifier.models import *
+from Doublet_Quantifier.continuum import *
 from scipy.optimize import curve_fit
 import numpy as np
 import numpy.ma as ma 
