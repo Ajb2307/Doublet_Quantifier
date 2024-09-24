@@ -22,7 +22,7 @@ cd Doublet_Quantifier
 ```
 Next, it needs to be installed.
 ```
-pip install
+pip install .
 ```
 
 
