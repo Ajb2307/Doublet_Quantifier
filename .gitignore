@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__
+.pytest_cache
+*.pyc
+.ruff_cache
+.vscode
+Doublet_Quantifier.egg-info
+build
+
+
