@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "doublet-quantifier"
-version = "0.0.1"
+version = "1.0"
 description = 'This code is tool a to quantify these doublet absorption lines, fitting two absorptions simultaneously, and provide parameters for exploring'
 readme = "README.md"
 requires-python = ">=3.8"
