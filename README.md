@@ -12,6 +12,21 @@ Work done at Brown Dwarf New York City (BDNYC) and American Museum of Natural Hi
 
 To cite this work see [CITATION](https://github.com/Ajb2307/Doublet_Quantifier/blob/main/CITATION)
 
+
+Install Instructions 
+===================
+First you need to clone this repository, and open the folder.
+```
+git clone https://github.com/BDNYC/Doublet_Quantifier.git
+cd Doublet_Quantifier
+```
+Next, it needs to be installed.
+```
+pip install
+```
+
+
+
 pseudo-Voigt
 ============
 The pseudo-Voigt ($pV$) is a linear combination of the Gaussian distribution ($G$) and a Lorentzian function ($L$) using the mixing coefficient $η$, where $0 \le η \le 1$, where when η=1, the line is a Gaussian distribution and η=0 indicates a Lorentzian distribution.
