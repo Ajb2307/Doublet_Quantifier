@@ -141,7 +141,7 @@ def fit_single_curve(
         # plotting if show == True and voigt
         if function == "voigt":
             print("curve fit: A, σ, γ, μ: ", A_fit, sigma_fit, gamma_fit, mu_fit)
-            print("my guess: A, σ,γ, μ: ", A0, sigma0, gamma0, mu0)
+            #print("my guess: A, σ,γ, μ: ", A0, sigma0, gamma0, mu0)
             plt.plot(
                 spec_section[0],
                 voigt(spec_section[0], A0, sigma0, gamma0, mu0),
@@ -666,7 +666,7 @@ def fit_two_curves(
             )
 
         if function == "pseudo-voigt" or function == "all":
-            print("curve fit: nu1, nu2 A1, A2, σ1, σ2, μ1, μ2: ", params_p)
+            print("curve fit: η1, η2 A1, A2, Γ1, Γ2, μ1, μ2: ", params_p)
             # Plotting Start Parameters
             # plt.plot(spec_section[0], two_pseudo_voigts(spec_section[0], nu0, nu0, A0_p, A0_p, sigma01_p, sigma02_p, mu1_0, mu2_0),
             #  label='pseudo-voigt start parameters', color='grey', alpha=0.5, linestyle='--')
