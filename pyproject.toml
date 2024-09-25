@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "doublet-quantifier"
-version = "1.0"
+name = "doublet_quantifier"
+version = "1.0.0"
 description = 'This code is tool a to quantify these doublet absorption lines, fitting two absorptions simultaneously, and provide parameters for exploring'
 readme = "README.md"
 requires-python = ">=3.8"
@@ -28,15 +28,14 @@ dependencies = [
   "numpy",
   "scipy",
   "matplotlib",
-  "pickle",
   "sphinx",
   "myst-parser"
 ]
 
 [project.urls]
-Documentation = "https://github.com/AJB2307/doublet-quantifier#readme"
-Issues = "https://github.com/AJB2307/doublet-quantifier/issues"
-Source = "https://github.com/AJB2307/doublet-quantifier"
+Documentation = "https://github.com/AJB2307/doublet_quantifier#readme"
+Issues = "https://github.com/AJB2307/doublet_quantifier/issues"
+Source = "https://github.com/AJB2307/doublet_quantifier"
 
 
 [tool.hatch.envs.types]
@@ -55,8 +54,8 @@ omit = [
 ]
 
 [tool.coverage.paths]
-doublet_quantifier = ["src/doublet_quantifier", "*/doublet-quantifier/src/doublet_quantifier"]
-tests = ["tests", "*/doublet-quantifier/tests"]
+doublet_quantifier = ["src/doublet_quantifier", "*/src/doublet_quantifier"]
+tests = ["tests", "*/doublet_quantifier/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -65,3 +64,5 @@ exclude_lines = [
   "if TYPE_CHECKING:",
 ]
 
+[tool.hatch.build.targets.wheel]
+      packages = ["doublet_quantifier"]

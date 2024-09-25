@@ -6,5 +6,6 @@ __pycache__
 .vscode
 Doublet_Quantifier.egg-info
 build
+*.gz
 
 
