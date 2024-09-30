@@ -2,13 +2,12 @@
 **Doublet_Quantifier**
 ==================
 
-
-This code is used as a method to quantify these doublet absorption lines, fitting two absorptions simultaneously, and provide parameters for exploring
+This code is a method to quantify doublet absorption lines, fitting two absorptions simultaneously, and provide parameters for exploring
 aspects of both the shape and size of these absorption lines. The key model in this method used here is the __pseudo-Voigt function__, which is a linear combination of a Gaussian function and Lorentzian profile. 
 
 This work was presented at AAS 243rd meeting as an [iPoster](https://aas242-aas.ipostersessions.com/?s=FA-8F-E2-DC-BE-FF-45-08-3E-48-E5-33-FC-E3-B1-E6).
 
-Work done at Brown Dwarf New York City (BDNYC) and American Museum of Natural History (AMNH)
+Work done at Brown Dwarf New York City ([BDNYC](https://bdnyc.org/)) and American Museum of Natural History (AMNH)
 
 To cite this work see [CITATION](https://github.com/Ajb2307/Doublet_Quantifier/blob/main/CITATION)
 
