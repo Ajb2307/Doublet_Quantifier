@@ -5,7 +5,10 @@ authors:
   given-names: "Alexandra"
 - family-names: "Cruz"
   given-names: "Kelle"
-title: "Doublet_Quantifier"
-version: 1.0.0
-date-released: 2024-09-13
-url: "https://github.com/Ajb2307/Doublet_Quantifier"
+title: "doublet_quantifier"
+version: v1.0.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.13863416}
+date-released: 2024-09-30
+
